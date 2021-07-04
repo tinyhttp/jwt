@@ -2,7 +2,7 @@
   "name": "@tinyhttp/jwt",
   "version": "1.3.1",
   "type": "module",
-  "description": "JWT middleware for tinyhttp",
+  "description": "tiny JWT middleware for Node.js",
   "homepage": "https://github.com/tinyhttp/jwt#readme",
   "repository": {
     "type": "git",

@@ -48,6 +48,7 @@
     "test:report": "c8 report --reporter=text-lcov > coverage.lcov",
     "lint": "eslint . --ext=ts",
     "format": "prettier --check \"./**/*.{ts,md}\"",
+    "format:fix": "prettier --write \"./**/*.{ts,md}\"",
     "prepare": "pnpm build && pnpm lint && pnpm test"
   },
   "devDependencies": {

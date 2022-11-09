@@ -30,14 +30,14 @@ it('should work with different HMAC algorithms', () => {
   const algorithms: Algorithm[] = ['HS512', 'HS256', 'HS384']
   const secret = 'shhhhhh'
 
-  algorithms.forEach(algorithm => {
+  algorithms.forEach((algorithm) => {
     const token = jsonwebtoken.sign({ foo: 'bar' }, secret, { algorithm })
     req.headers.authorization = 'Bearer ' + token
 
     jwt({ secret: secret, algorithm })(req, res, () => {
       expect(req.user.foo).toBe('bar')
     })
-  });
+  })
 })
 
 it('should work if authorization header is valid with a buffer secret', () => {
@@ -67,13 +67,13 @@ it('should work with different RSA algorithms', () => {
   const privateKey = fs.readFileSync('tests/fixtures/private', { encoding: 'utf-8' })
   const publicKey = fs.readFileSync('tests/fixtures/public', { encoding: 'utf-8' })
 
-  algorithms.forEach(algorithm => {
+  algorithms.forEach((algorithm) => {
     req.headers.authorization = 'Bearer ' + jsonwebtoken.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' })
 
     jwt({ secret: [privateKey, publicKey], algorithm })(req, res, () => {
       expect(req.user.foo).toBe('bar')
     })
-  });
+  })
 })
 
 it('should not work with malformed input', () => {

@@ -68,7 +68,7 @@ it('should work with different RSA algorithms', () => {
   const publicKey = fs.readFileSync('tests/fixtures/public', { encoding: 'utf-8' })
 
   algorithms.forEach((algorithm) => {
-    req.headers.authorization = 'Bearer ' + jsonwebtoken.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' })
+    req.headers.authorization = 'Bearer ' + jsonwebtoken.sign({ foo: 'bar' }, privateKey, { algorithm })
 
     jwt({ secret: [privateKey, publicKey], algorithm })(req, res, () => {
       expect(req.user.foo).toBe('bar')

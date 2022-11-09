@@ -22,7 +22,7 @@ it('should work if authorization header is valid jsonwebtoken', () => {
   req.headers.authorization = 'Bearer ' + token
 
   jwt({ secret: secret })(req, res, () => {
-    expect('bar').toBe(req.user.foo)
+    expect(req.user.foo).toBe('bar')
   })
 })
 
@@ -33,7 +33,7 @@ it('should work if authorization header is valid with a buffer secret', () => {
   req.headers.authorization = 'Bearer ' + token
 
   jwt({ secret: secret.toString(), algorithm: 'HS256' })(req, res, () => {
-    expect('bar').toBe(req.user.foo)
+    expect(req.user.foo).toBe('bar')
   })
 })
 
@@ -44,7 +44,7 @@ it('should handle private key encryption', () => {
   req.headers.authorization = 'Bearer ' + jsonwebtoken.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' })
 
   jwt({ secret: [privateKey, publicKey], algorithm: 'RS256' })(req, res, () => {
-    expect('bar').toBe(req.user.foo)
+    expect(req.user.foo).toBe('bar')
   })
 })
 
@@ -56,6 +56,14 @@ it('should not work with malformed input', () => {
   req.headers.authorization = 'Bearer ' + token
 
   jwt({ secret: true_secret })(req, res, () => {
+    expect(req.user.foo).toBeUndefined()
+  })
+})
+
+it('should not work if authorization header is missing', () => {
+  const secret = 'shhhhhh'
+
+  jwt({ secret: secret })(req, res, () => {
     expect(req.user.foo).toBeUndefined()
   })
 })

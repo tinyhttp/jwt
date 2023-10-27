@@ -33,7 +33,7 @@ export const jwt = ({
   responseHeaderName = 'X-Token',
   getToken = getTokenFromHeader
 }: JwtMwProps) => {
-  return function (req: RequestWithUser, res: ServerResponse, next?: () => void) {
+  return function (req: RequestWithUser, res: ServerResponse, next: () => void) {
     const token: string = getToken((req.headers[requestHeaderName] as string) ?? '')
 
     try {
@@ -56,9 +56,9 @@ export const jwt = ({
           algorithm
         })
       )
-      next?.()
+      next()
     } catch {
-      next?.()
+      next()
     }
   }
 }

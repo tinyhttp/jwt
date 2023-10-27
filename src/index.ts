@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse as Response } from 'http'
+import { IncomingMessage, ServerResponse } from 'node:http'
 import jwtoken, { Algorithm } from 'jsonwebtoken'
 
 export interface JwtMwProps {
@@ -13,7 +13,7 @@ export interface JwtMwProps {
   getToken?: (header: string) => string
 }
 
-export interface Request extends IncomingMessage {
+export interface RequestWithUser extends IncomingMessage {
   user?: any
 }
 
@@ -33,7 +33,7 @@ export const jwt = ({
   responseHeaderName = 'X-Token',
   getToken = getTokenFromHeader
 }: JwtMwProps) => {
-  return function (req: Request, res: Response, next?: () => void) {
+  return function (req: RequestWithUser, res: ServerResponse, next?: () => void) {
     const token: string = getToken((req.headers[requestHeaderName] as string) ?? '')
 
     try {
@@ -56,9 +56,9 @@ export const jwt = ({
           algorithm
         })
       )
-      next()
+      next?.()
     } catch {
-      next()
+      next?.()
     }
   }
 }

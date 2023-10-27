@@ -11,7 +11,7 @@ JWT middleware for HTTP servers.
 ## Install
 
 ```sh
-pnpm i @tinyhttp/jwt
+bun i @tinyhttp/jwt
 ```
 
 ## API

@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "dist",
-    "module": "ESNext",
-    "target": "ES2019",
-    "preserveSymlinks": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node"
-  },
-  "include": ["src"]
+    "module": "NodeNext",
+    "target": "esnext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": [
+      "bun-types" // add Bun global
+    ],
+    "lib": ["DOM"]
+  }
 }

@@ -1,16 +1,14 @@
-import { suite } from 'uvu'
-import { ServerResponse as Response } from 'http'
-import fs from 'fs'
+import { beforeEach, it } from 'node:test'
+import type { ServerResponse } from 'node:http'
+import fs from 'node:fs'
 import jsonwebtoken, { Algorithm } from 'jsonwebtoken'
-import expect from 'expect'
-import { jwt, Request } from '../src/index'
+import { expect } from 'expect'
+import { jwt, RequestWithUser } from '../src/index.js'
 
-const it = suite('JWT tests')
+const req = {} as RequestWithUser
+const res = {} as ServerResponse
 
-const req = {} as Request
-const res = {} as Response
-
-it.before.each(() => {
+beforeEach(() => {
   req.headers = {}
   req.user = {}
 })
@@ -95,5 +93,3 @@ it('should not work if authorization header is missing', () => {
     expect(req.user.foo).toBeUndefined()
   })
 })
-
-it.run()
